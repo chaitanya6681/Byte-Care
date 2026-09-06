@@ -4,7 +4,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const DB_FILE = path.join(__dirname, 'data.json');
+const DATA_FILE = process.env.DATA_FILE || path.join('/tmp', 'byte-care-data.json');
+
 
 function seedData() {
   return {
