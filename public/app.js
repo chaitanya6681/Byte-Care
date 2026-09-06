@@ -182,6 +182,8 @@ async function init() {
   });
   document.getElementById('patientRegisterSubmit').addEventListener('click', submitPatientRegister);
   document.getElementById('patientLoginSubmit').addEventListener('click', submitPatientLogin);
+  document.getElementById('patientAuthRegisterTab').addEventListener('click', () => setPatientAuthMode('register'));
+  document.getElementById('patientAuthLoginTab').addEventListener('click', () => setPatientAuthMode('login'));
   document.getElementById('patientRegisterPassword').addEventListener('keydown', e => {
     if (e.key === 'Enter') submitPatientRegister();
   });
@@ -256,13 +258,22 @@ function setRole(role) {
   }
 }
 
+function setPatientAuthMode(mode) {
+  const isRegister = mode === 'register';
+  document.getElementById('patientRegisterPanel').style.display = isRegister ? 'block' : 'none';
+  document.getElementById('patientLoginPanel').style.display = isRegister ? 'none' : 'block';
+  document.getElementById('patientAuthRegisterTab').classList.toggle('active', isRegister);
+  document.getElementById('patientAuthLoginTab').classList.toggle('active', !isRegister);
+  document.getElementById('patientRegisterError').style.display = 'none';
+  document.getElementById('patientLoginError').style.display = 'none';
+}
+
 function showPatientAuth() {
   document.getElementById('patientTabs').style.display = 'none';
   document.getElementById('staffTabs').style.display = 'none';
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-patientAuth').classList.add('active');
-  document.getElementById('patientRegisterError').style.display = 'none';
-  document.getElementById('patientLoginError').style.display = 'none';
+  setPatientAuthMode('register');
 }
 
 function showStaffLogin() {
@@ -358,7 +369,7 @@ async function submitPatientLogin() {
   try {
     const res = await fetch(API + '/patient/login', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ identifier: username, password })
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Login failed');

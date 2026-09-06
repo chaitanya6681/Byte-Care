@@ -73,8 +73,13 @@
 
     <!-- ===================== PATIENT AUTH ===================== -->
     <section class="view" id="view-patientAuth" data-role="patientAuth">
-      <div class="grid grid-2">
-        <div class="card">
+      <div class="card patient-auth-card">
+        <div class="auth-mode-switch" role="tablist" aria-label="Patient account access">
+          <button type="button" id="patientAuthRegisterTab" class="active" data-i18n="authRegisterTab">Register</button>
+          <button type="button" id="patientAuthLoginTab" data-i18n="authLoginTab">Log in</button>
+        </div>
+
+        <div id="patientRegisterPanel">
           <h3><span class="icon" data-icon="users"></span><span data-i18n="patientRegisterTitle">Create patient account</span></h3>
           <p class="hint" data-i18n="patientRegisterHint">Register once to receive a Health ID that works across facilities.</p>
           <label data-i18n="labelName">Your name</label>
@@ -85,14 +90,16 @@
           <input type="password" id="patientRegisterPassword" placeholder="At least 6 characters" autocomplete="new-password" />
           <label data-i18n="labelHealthIdOptional">Existing Health ID (optional)</label>
           <input type="text" id="patientRegisterHealthId" placeholder="Link an existing record, e.g. HA-100001" />
+          <p class="hint auth-link-hint" data-i18n="patientExistingIdHint">If your name matches an existing patient record, it will be linked automatically.</p>
           <button class="btn btn-primary btn-block" id="patientRegisterSubmit"><span class="icon" data-icon="check" data-icon-size="18"></span><span data-i18n="btnRegister">Register</span></button>
           <p id="patientRegisterError" class="hint" style="color:var(--red-600); display:none; margin-top:12px;"></p>
         </div>
-        <div class="card">
+
+        <div id="patientLoginPanel" style="display:none;">
           <h3><span class="icon" data-icon="check"></span><span data-i18n="patientLoginTitle">Patient login</span></h3>
-          <p class="hint" data-i18n="patientLoginHint">Sign in to see your Health ID and health record.</p>
-          <label data-i18n="labelUsername">Username</label>
-          <input type="text" id="patientLoginUsername" placeholder="Your username" autocomplete="username" />
+          <p class="hint" data-i18n="patientLoginHint">Sign in to restore your Health ID and health record automatically.</p>
+          <label data-i18n="labelUsernameOrHealthId">Username or Health ID</label>
+          <input type="text" id="patientLoginUsername" placeholder="Username or e.g. HA-100001" autocomplete="username" />
           <label data-i18n="labelPassword">Password</label>
           <input type="password" id="patientLoginPassword" placeholder="Your password" autocomplete="current-password" />
           <button class="btn btn-primary btn-block" id="patientLoginSubmit"><span class="icon" data-icon="check" data-icon-size="18"></span><span data-i18n="btnLogin">Log in</span></button>
