@@ -81,3 +81,12 @@ healthaccess/
 7. **Health Record** → use the Health ID shown after booking (for example `HA-100001`) → show the cross-facility visit/referral timeline and patient report
 8. Log out → try tapping Facility Staff again → show it asks to log in again
 9. Register as a patient → show the generated Health ID in the header → log out and log back in to demonstrate persistence.
+
+
+## 🚀 Deployment
+
+The project is deployed on **Vercel** and can be accessed using the link below:
+
+🔗 **Live Demo:** [[YOUR_VERCEL_LINK](https://byte-care-git-main-chaitanya6681s-projects.vercel.app/)]
+
+Click the link above to access the live application.
