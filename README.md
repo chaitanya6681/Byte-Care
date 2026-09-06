@@ -1,4 +1,4 @@
-# HealthAccess — SIH26133 Demo
+# ByteCare — SIH26133 Demo
 
 A working prototype for **SIH26133: Public Healthcare Accessibility & Quality**.
 Built for rural/underserved patients and the facility staff who serve them.
