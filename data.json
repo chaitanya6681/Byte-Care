@@ -1,0 +1,269 @@
+{
+  "staffAccounts": [
+    {
+      "facilityId": "phc1",
+      "username": "ramnagar_staff",
+      "password": "phc123",
+      "displayName": "Ramnagar PHC Staff"
+    },
+    {
+      "facilityId": "phc2",
+      "username": "devipur_staff",
+      "password": "phc123",
+      "displayName": "Devipur PHC Staff"
+    },
+    {
+      "facilityId": "hosp1",
+      "username": "hosp_staff",
+      "password": "hosp123",
+      "displayName": "District Hospital Staff"
+    },
+    {
+      "facilityId": "spec1",
+      "username": "spec_staff",
+      "password": "spec123",
+      "displayName": "City Specialty Staff"
+    },
+    {
+      "facilityId": null,
+      "username": "admin",
+      "password": "admin123",
+      "displayName": "System Admin (all facilities)"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "phc1",
+      "name": "Ramnagar PHC",
+      "type": "PHC",
+      "location": "Ramnagar Village"
+    },
+    {
+      "id": "phc2",
+      "name": "Devipur PHC",
+      "type": "PHC",
+      "location": "Devipur Village"
+    },
+    {
+      "id": "hosp1",
+      "name": "District General Hospital",
+      "type": "Hospital",
+      "location": "District HQ"
+    },
+    {
+      "id": "spec1",
+      "name": "City Specialty Centre",
+      "type": "Specialist",
+      "location": "City Centre"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "a1",
+      "facilityId": "phc1",
+      "patientName": "Sunita Devi",
+      "department": "General Medicine",
+      "token": 1,
+      "status": "done",
+      "avgMinsPerPatient": 8,
+      "createdAt": 1788626603959,
+      "patientId": "p1",
+      "patientReport": "",
+      "visitNote": "",
+      "diagnosis": "",
+      "outcome": ""
+    },
+    {
+      "id": "a2",
+      "facilityId": "phc1",
+      "patientName": "Ram Kumar",
+      "department": "General Medicine",
+      "token": 2,
+      "status": "done",
+      "avgMinsPerPatient": 8,
+      "createdAt": 1788627203959,
+      "patientId": "p2",
+      "patientReport": "",
+      "visitNote": "",
+      "diagnosis": "",
+      "outcome": ""
+    },
+    {
+      "id": "a3",
+      "facilityId": "phc1",
+      "patientName": "Geeta",
+      "department": "General Medicine",
+      "token": 3,
+      "status": "done",
+      "avgMinsPerPatient": 8,
+      "createdAt": 1788628403959,
+      "patientId": "p3",
+      "patientReport": "",
+      "visitNote": "",
+      "diagnosis": "",
+      "outcome": ""
+    },
+    {
+      "id": "a4",
+      "facilityId": "hosp1",
+      "patientName": "Vikram Singh",
+      "department": "Orthopedics",
+      "token": 1,
+      "status": "waiting",
+      "avgMinsPerPatient": 15,
+      "createdAt": 1788627803959,
+      "patientId": "p4",
+      "patientReport": "",
+      "visitNote": "",
+      "diagnosis": "",
+      "outcome": ""
+    },
+    {
+      "id": "amtpqq53jakz4",
+      "patientId": "pmtpqprs9v4ob",
+      "healthId": "HA-100006",
+      "facilityId": "spec1",
+      "patientName": "M Chaitanya",
+      "department": "Dermatology",
+      "token": 1,
+      "status": "waiting",
+      "avgMinsPerPatient": 8,
+      "patientReport": "",
+      "visitNote": "",
+      "diagnosis": "",
+      "outcome": "",
+      "createdAt": 1788694841935
+    }
+  ],
+  "medicines": [
+    {
+      "id": "m1",
+      "facilityId": "phc1",
+      "name": "Paracetamol",
+      "quantity": 120
+    },
+    {
+      "id": "m2",
+      "facilityId": "phc1",
+      "name": "ORS Packets",
+      "quantity": 80
+    },
+    {
+      "id": "m3",
+      "facilityId": "phc1",
+      "name": "Amoxicillin",
+      "quantity": 100
+    },
+    {
+      "id": "m4",
+      "facilityId": "phc2",
+      "name": "Paracetamol",
+      "quantity": 15
+    },
+    {
+      "id": "m5",
+      "facilityId": "phc2",
+      "name": "Iron Folic Acid",
+      "quantity": 60
+    },
+    {
+      "id": "m6",
+      "facilityId": "hosp1",
+      "name": "Insulin",
+      "quantity": 25
+    },
+    {
+      "id": "m7",
+      "facilityId": "hosp1",
+      "name": "IV Fluids",
+      "quantity": 4
+    }
+  ],
+  "referrals": [
+    {
+      "id": "r1",
+      "patientName": "Vikram Singh",
+      "fromFacilityId": "phc1",
+      "toFacilityId": "hosp1",
+      "reason": "Suspected fracture, needs X-ray",
+      "status": "in-transit",
+      "createdAt": 1788623603959,
+      "patientId": "p4"
+    },
+    {
+      "id": "r2",
+      "patientName": "Anita Kumari",
+      "fromFacilityId": "phc2",
+      "toFacilityId": "spec1",
+      "reason": "Referred for cardiology consult",
+      "status": "reached",
+      "createdAt": 1788611003959,
+      "patientId": "p5"
+    }
+  ],
+  "feedback": [
+    {
+      "id": "f1",
+      "facilityId": "phc1",
+      "patientName": "Sunita Devi",
+      "message": "Waited almost an hour for a fever checkup.",
+      "rating": 2,
+      "createdAt": 1788621803959
+    },
+    {
+      "id": "f2",
+      "facilityId": "hosp1",
+      "patientName": "Vikram Singh",
+      "message": "Staff was helpful once I reached, but referral took long.",
+      "rating": 3,
+      "createdAt": 1788625403959
+    }
+  ],
+  "patients": [
+    {
+      "id": "p1",
+      "healthId": "HA-100001",
+      "name": "Sunita Devi",
+      "createdAt": 1788694794300
+    },
+    {
+      "id": "p2",
+      "healthId": "HA-100002",
+      "name": "Ram Kumar",
+      "createdAt": 1788694794300
+    },
+    {
+      "id": "p3",
+      "healthId": "HA-100003",
+      "name": "Geeta",
+      "createdAt": 1788694794300
+    },
+    {
+      "id": "p4",
+      "healthId": "HA-100004",
+      "name": "Vikram Singh",
+      "createdAt": 1788694794300
+    },
+    {
+      "id": "p5",
+      "healthId": "HA-100005",
+      "name": "Anita Kumari",
+      "createdAt": 1788694794300
+    },
+    {
+      "id": "pmtpqprs9v4ob",
+      "healthId": "HA-100006",
+      "name": "M Chaitanya",
+      "createdAt": 1788694824681
+    }
+  ],
+  "patientAccounts": [
+    {
+      "id": "pamtpqprs9l5mq",
+      "patientId": "pmtpqprs9v4ob",
+      "username": "chaitanya6681",
+      "passwordHash": "25b4a3fe37be1d1c11d403c062008950:726a00ec6207d42fd07dbb4b184cfe734be5907732212da78dfdb82065f161d3fc1011ce83efc0dd7a71b0e92598dff3d3b19cdc5df8b8eb92e7c5076acc4af5",
+      "createdAt": 1788694824820
+    }
+  ]
+}

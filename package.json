@@ -1,0 +1,10 @@
+{
+  "name": "healthaccess-sih26133",
+  "version": "1.0.0",
+  "description": "SIH26133 - Public Healthcare Accessibility & Quality demo (zero external dependencies)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}

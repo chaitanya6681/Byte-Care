@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HealthAccess — SIH26133 Demo</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-mark"><span class="icon" data-icon="stethoscope" data-icon-size="22"></span></div>
+      <div>
+        <div class="brand-name" data-i18n="appName">HealthAccess</div>
+        <div class="brand-sub" data-i18n="appTag">SIH26133 — Public Healthcare Accessibility</div>
+      </div>
+    </div>
+    <div class="header-controls">
+      <div class="role-switch">
+        <button id="roleBtnPatient" class="active"><span class="icon" data-icon="users" data-icon-size="16"></span><span data-i18n="rolePatient">Patient</span></button>
+        <button id="roleBtnStaff"><span class="icon" data-icon="grid" data-icon-size="16"></span><span data-i18n="roleStaff">Facility Staff</span></button>
+      </div>
+      <select id="langSelect" class="lang-select">
+        <option value="en">🌐 English</option>
+        <option value="hi">🌐 हिन्दी</option>
+      </select>
+      <div id="patientWhoami" style="display:none;"></div>
+      <div id="staffWhoami" style="display:none;"></div>
+    </div>
+  </header>
+
+  <nav class="tabbar" id="patientTabs">
+    <button data-tab="home" class="active"><span class="icon" data-icon="home"></span><span data-i18n="tabHome">Home</span></button>
+    <button data-tab="book"><span class="icon" data-icon="ticket"></span><span data-i18n="tabBook">Book Token</span></button>
+    <button data-tab="queue"><span class="icon" data-icon="clock"></span><span data-i18n="tabQueue">My Queue</span></button>
+    <button data-tab="triage"><span class="icon" data-icon="stethoscope"></span><span data-i18n="tabTriage">Symptom Check</span></button>
+    <button data-tab="medicine"><span class="icon" data-icon="pill"></span><span data-i18n="tabMedicine">Medicine</span></button>
+    <button data-tab="referral"><span class="icon" data-icon="swap"></span><span data-i18n="tabReferral">Referral</span></button>
+    <button data-tab="records"><span class="icon" data-icon="list"></span><span data-i18n="tabRecords">Health Record</span></button>
+    <button data-tab="feedback"><span class="icon" data-icon="chat"></span><span data-i18n="tabFeedback">Feedback</span></button>
+  </nav>
+
+  <nav class="tabbar" id="staffTabs" style="display:none;">
+    <button data-tab="dashboard" class="active"><span class="icon" data-icon="grid"></span><span data-i18n="tabDashboard">Dashboard</span></button>
+    <button data-tab="manageQueue"><span class="icon" data-icon="list"></span><span data-i18n="tabManageQueue">Queue</span></button>
+    <button data-tab="manageStock"><span class="icon" data-icon="box"></span><span data-i18n="tabManageStock">Stock</span></button>
+    <button data-tab="referrals"><span class="icon" data-icon="swap"></span><span data-i18n="tabReferrals">Referrals</span></button>
+    <button data-tab="feedbackList"><span class="icon" data-icon="alert"></span><span data-i18n="tabFeedbackList">Complaints</span></button>
+  </nav>
+
+  <main>
+
+    <!-- ===================== STAFF LOGIN GATE ===================== -->
+    <section class="view" id="view-staffLogin" data-role="staffLogin">
+      <div class="card" style="max-width:420px; margin:0 auto;">
+        <h3><span class="icon" data-icon="grid"></span><span>Facility Staff Login</span></h3>
+        <p class="hint">Sign in with your facility's staff account to manage the queue, stock, and referrals.</p>
+        <label>Username</label>
+        <input type="text" id="staffUsername" placeholder="e.g. ramnagar_staff" autocomplete="username" />
+        <label>Password</label>
+        <input type="password" id="staffPassword" placeholder="Password" autocomplete="current-password" />
+        <button class="btn btn-primary btn-block" id="staffLoginSubmit"><span class="icon" data-icon="check" data-icon-size="18"></span><span>Log in</span></button>
+        <p id="staffLoginError" class="hint" style="color:var(--red-600); display:none; margin-top:12px;"></p>
+        <p class="hint" style="margin-top:16px; font-size:12.5px;">
+          Demo accounts — Ramnagar PHC: <b>ramnagar_staff</b> / <b>phc123</b>,
+          District Hospital: <b>hosp_staff</b> / <b>hosp123</b>,
+          Admin (all facilities): <b>admin</b> / <b>admin123</b>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== PATIENT AUTH ===================== -->
+    <section class="view" id="view-patientAuth" data-role="patientAuth">
+      <div class="grid grid-2">
+        <div class="card">
+          <h3><span class="icon" data-icon="users"></span><span data-i18n="patientRegisterTitle">Create patient account</span></h3>
+          <p class="hint" data-i18n="patientRegisterHint">Register once to receive a Health ID that works across facilities.</p>
+          <label data-i18n="labelName">Your name</label>
+          <input type="text" id="patientRegisterName" placeholder="e.g. Sunita Devi" />
+          <label data-i18n="labelUsername">Username</label>
+          <input type="text" id="patientRegisterUsername" placeholder="e.g. sunita.devi" autocomplete="username" />
+          <label data-i18n="labelPassword">Password</label>
+          <input type="password" id="patientRegisterPassword" placeholder="At least 6 characters" autocomplete="new-password" />
+          <label data-i18n="labelHealthIdOptional">Existing Health ID (optional)</label>
+          <input type="text" id="patientRegisterHealthId" placeholder="Link an existing record, e.g. HA-100001" />
+          <button class="btn btn-primary btn-block" id="patientRegisterSubmit"><span class="icon" data-icon="check" data-icon-size="18"></span><span data-i18n="btnRegister">Register</span></button>
+          <p id="patientRegisterError" class="hint" style="color:var(--red-600); display:none; margin-top:12px;"></p>
+        </div>
+        <div class="card">
+          <h3><span class="icon" data-icon="check"></span><span data-i18n="patientLoginTitle">Patient login</span></h3>
+          <p class="hint" data-i18n="patientLoginHint">Sign in to see your Health ID and health record.</p>
+          <label data-i18n="labelUsername">Username</label>
+          <input type="text" id="patientLoginUsername" placeholder="Your username" autocomplete="username" />
+          <label data-i18n="labelPassword">Password</label>
+          <input type="password" id="patientLoginPassword" placeholder="Your password" autocomplete="current-password" />
+          <button class="btn btn-primary btn-block" id="patientLoginSubmit"><span class="icon" data-icon="check" data-icon-size="18"></span><span data-i18n="btnLogin">Log in</span></button>
+          <p id="patientLoginError" class="hint" style="color:var(--red-600); display:none; margin-top:12px;"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PATIENT: HOME ===================== -->
+    <section class="view active" id="view-home" data-role="patient">
+      <div class="home-hero">
+        <h2 data-i18n="homeGreeting">How can we help you today?</h2>
+        <p data-i18n="homeSub">Tap an option below. You can switch to Hindi anytime from the top menu.</p>
+      </div>
+      <div class="grid grid-home">
+        <button class="home-card" data-goto="book">
+          <div class="icon-circle teal"><span class="icon" data-icon="ticket" data-icon-size="26"></span></div>
+          <div class="home-card-label" data-i18n="tabBook">Book Token</div>
+        </button>
+        <button class="home-card" data-goto="queue">
+          <div class="icon-circle marigold"><span class="icon" data-icon="clock" data-icon-size="26"></span></div>
+          <div class="home-card-label" data-i18n="tabQueue">My Queue</div>
+        </button>
+        <button class="home-card" data-goto="triage">
+          <div class="icon-circle teal"><span class="icon" data-icon="stethoscope" data-icon-size="26"></span></div>
+          <div class="home-card-label" data-i18n="tabTriage">Symptom Check</div>
+        </button>
+        <button class="home-card" data-goto="medicine">
+          <div class="icon-circle marigold"><span class="icon" data-icon="pill" data-icon-size="26"></span></div>
+          <div class="home-card-label" data-i18n="tabMedicine">Medicine</div>
+        </button>
+        <button class="home-card" data-goto="referral">
+          <div class="icon-circle teal"><span class="icon" data-icon="swap" data-icon-size="26"></span></div>
+          <div class="home-card-label" data-i18n="tabReferral">Referral</div>
+        </button>
+        <button class="home-card" data-goto="feedback">
+          <div class="icon-circle marigold"><span class="icon" data-icon="chat" data-icon-size="26"></span></div>
+          <div class="home-card-label" data-i18n="tabFeedback">Feedback</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================== PATIENT VIEWS ===================== -->
+    <section class="view" id="view-book" data-role="patient">
+      <div class="grid grid-2">
+        <div class="card">
+          <h3><span class="icon" data-icon="ticket"></span><span data-i18n="bookTitle">Book a token</span></h3>
+          <p class="hint" data-i18n="bookHint">Choose your facility and department to get a queue token.</p>
+          <label data-i18n="labelFacility">Facility</label>
+          <select id="bookFacility"></select>
+          <label data-i18n="labelDept">Department</label>
+          <select id="bookDept">
+            <option>General Medicine</option>
+            <option>Orthopedics</option>
+            <option>Gynecology</option>
+            <option>Cardiology</option>
+            <option>Dermatology</option>
+            <option>Dental</option>
+            <option>Ophthalmology</option>
+          </select>
+          <label data-i18n="labelName">Your name</label>
+          <input type="text" id="bookName" placeholder="e.g. Sunita Devi" />
+          <label data-i18n="labelHealthId">Health ID (returning patient)</label>
+          <input type="text" id="bookHealthId" placeholder="e.g. HA-100001" />
+          <label data-i18n="labelPatientReport">Patient report</label>
+          <textarea id="bookPatientReport" placeholder="Tell the care team what brings you in"></textarea>
+          <button class="btn btn-primary btn-block" id="bookSubmit"><span class="icon" data-icon="ticket" data-icon-size="18"></span><span data-i18n="btnBook">Get Token</span></button>
+        </div>
+        <div class="card" id="bookResultCard" style="display:none;">
+          <h3><span class="icon" data-icon="check"></span><span data-i18n="bookResultTitle">Your token</span></h3>
+          <div class="token-display">
+            <div class="icon-circle teal"><span class="icon" data-icon="ticket" data-icon-size="30"></span></div>
+            <div class="token-num" id="bookTokenNum">--</div>
+            <div class="token-wait" id="bookTokenWait"></div>
+            <div class="token-wait" id="bookHealthIdResult"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-queue" data-role="patient">
+      <div class="card">
+        <h3><span class="icon" data-icon="clock"></span><span data-i18n="queueTitle">Live queue</span></h3>
+        <p class="hint" data-i18n="queueHint">Pick a facility to see current waiting tokens and estimated wait.</p>
+        <label data-i18n="labelFacility">Facility</label>
+        <select id="queueFacility"></select>
+        <div class="list" id="queueList" style="margin-top:16px;"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-triage" data-role="patient">
+      <div class="card">
+        <h3><span class="icon" data-icon="stethoscope"></span><span data-i18n="triageTitle">What's the problem?</span></h3>
+        <p class="hint" data-i18n="triageHint">Describe symptoms in your own words (or use the mic). We'll suggest where to go.</p>
+        <div class="field-row">
+          <textarea id="triageInput" placeholder="e.g. fever and body ache since 2 days"></textarea>
+          <button class="mic-btn" id="triageMic" title="Speak"><span class="icon" data-icon="mic" data-icon-size="20"></span></button>
+        </div>
+        <button class="btn btn-primary btn-block" id="triageSubmit"><span class="icon" data-icon="arrowRight" data-icon-size="18"></span><span data-i18n="btnCheck">Check</span></button>
+        <div id="triageResult" style="margin-top:18px;"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-medicine" data-role="patient">
+      <div class="card">
+        <h3><span class="icon" data-icon="pill"></span><span data-i18n="medTitle">Medicine availability</span></h3>
+        <label data-i18n="labelFacility">Facility</label>
+        <select id="medFacility"></select>
+        <div class="list" id="medList" style="margin-top:16px;"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-referral" data-role="patient">
+      <div class="card">
+        <h3><span class="icon" data-icon="swap"></span><span data-i18n="refTitle">Track a referral</span></h3>
+        <p class="hint" data-i18n="refHint">See referrals moving between facilities (PHC → Hospital → Specialist).</p>
+        <div class="list" id="referralPatientList"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-records" data-role="patient">
+      <div class="card">
+        <h3><span class="icon" data-icon="list"></span><span data-i18n="recordsTitle">My health record</span></h3>
+        <p class="hint" data-i18n="recordsHint">Enter your Health ID to see visits and referrals across facilities.</p>
+        <label data-i18n="labelHealthId">Health ID</label>
+        <input type="text" id="recordHealthId" placeholder="e.g. HA-100001" />
+        <button class="btn btn-primary btn-block" id="recordLookupSubmit"><span class="icon" data-icon="list" data-icon-size="18"></span><span data-i18n="btnViewRecord">View health record</span></button>
+        <div id="recordPatientSummary" style="margin-top:18px;"></div>
+        <div class="list" id="recordTimeline" style="margin-top:16px;"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-feedback" data-role="patient">
+      <div class="card">
+        <h3><span class="icon" data-icon="chat"></span><span data-i18n="fbTitle">Share feedback</span></h3>
+        <label data-i18n="labelFacility">Facility</label>
+        <select id="fbFacility"></select>
+        <label data-i18n="labelName">Your name (optional)</label>
+        <input type="text" id="fbName" placeholder="e.g. Ram Kumar" />
+        <label data-i18n="labelMessage">Your feedback</label>
+        <textarea id="fbMessage" placeholder="e.g. Waited too long, no doctor available on time"></textarea>
+        <label data-i18n="labelRating">Rating</label>
+        <select id="fbRating">
+          <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+          <option value="4">⭐⭐⭐⭐ Good</option>
+          <option value="3" selected>⭐⭐⭐ Okay</option>
+          <option value="2">⭐⭐ Poor</option>
+          <option value="1">⭐ Very poor</option>
+        </select>
+        <button class="btn btn-primary btn-block" id="fbSubmit"><span class="icon" data-icon="chat" data-icon-size="18"></span><span data-i18n="btnSubmitFeedback">Submit Feedback</span></button>
+      </div>
+    </section>
+
+    <!-- ===================== STAFF VIEWS ===================== -->
+    <section class="view" id="view-dashboard" data-role="staff">
+      <div class="card" style="margin-bottom:18px;">
+        <label data-i18n="labelFacility">Facility</label>
+        <select id="dashFacility"></select>
+      </div>
+      <div id="dashAlertBanner"></div>
+      <div class="section-label" data-i18n="dashOverviewLabel">Overview</div>
+      <div class="grid grid-3" id="dashStats" style="margin-bottom:20px;"></div>
+      <div class="card">
+        <h3><span class="icon" data-icon="box"></span><span data-i18n="dashChartTitle">Medicine stock overview</span></h3>
+        <div class="bar-chart" id="dashMedChart" style="margin-top:12px;"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-manageQueue" data-role="staff">
+      <div class="card">
+        <label data-i18n="labelFacility">Facility</label>
+        <select id="mqFacility"></select>
+        <div class="list" id="mqList" style="margin-top:16px;"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-manageStock" data-role="staff">
+      <div class="card">
+        <label data-i18n="labelFacility">Facility</label>
+        <select id="msFacility"></select>
+        <div class="list" id="msList" style="margin-top:16px;"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-referrals" data-role="staff">
+      <div class="grid grid-2">
+        <div class="card">
+          <h3><span class="icon" data-icon="swap"></span><span data-i18n="newRefTitle">Create referral</span></h3>
+          <label data-i18n="labelHealthId">Patient Health ID</label>
+          <input type="text" id="newRefHealthId" placeholder="e.g. HA-100001" />
+          <label data-i18n="labelName">Patient name (new patient)</label>
+          <input type="text" id="newRefName" placeholder="e.g. Anita Kumari" />
+          <label data-i18n="labelFrom">From facility</label>
+          <select id="newRefFrom"></select>
+          <label data-i18n="labelTo">To facility</label>
+          <select id="newRefTo"></select>
+          <label data-i18n="labelReason">Reason</label>
+          <textarea id="newRefReason" placeholder="e.g. Needs specialist consult"></textarea>
+          <button class="btn btn-primary btn-block" id="newRefSubmit"><span class="icon" data-icon="swap" data-icon-size="18"></span><span data-i18n="btnCreateReferral">Create Referral</span></button>
+        </div>
+        <div class="card">
+          <h3><span class="icon" data-icon="list"></span><span data-i18n="allRefTitle">All referrals</span></h3>
+          <div class="list" id="staffReferralList"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-feedbackList" data-role="staff">
+      <div class="card">
+        <label data-i18n="labelFacility">Facility</label>
+        <select id="fbListFacility"></select>
+        <div class="list" id="fbListList" style="margin-top:16px;"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer data-i18n="footerNote">Demo data resets when you restart the server. Built for SIH26133.</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="icons.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
